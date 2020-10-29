@@ -2,20 +2,210 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Gugudan</title>
 </head>
 <body>
-       <div id="mainImage" align="center"> 
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQd1hoMIPSSZCibtU-XlcMgiVpGHDov4eB7EA&usqp=CAU" alt="mainImage" onclick="location.href='gugudan.html'">
+    <div id="mainImage"> 
+
+        <h3></h3>
+        <p></p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQd1hoMIPSSZCibtU-XlcMgiVpGHDov4eB7EA&usqp=CAU" alt="mainImage" style="margin-bottom: 20px;">
+   
+    </div>
+
+    <div id="gugudan" align="center";>
+      
+         <h2>구구단 계산기</h2> (단만 입력시 기본 9까지만 구해집니다)
+      
+          <div style="padding: 2%;">      
+                단 <input type="text" id="gugu">
+                몇 까지 <input type="text" id="gugu2">
+              <button id="btn">출력</button>
+              <div id="result"></div>
+          </div>
     </div>
 
 
-    <script>
-        const mainImage = document.querySelector('img');
+<style>
 
-        mainImage.style.textAlign = 'Center';
+    #mainImage {
+      text-align: center;
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      };
+
+      #gugudan {
+      font-family:Verdana, Geneva, Tahoma, sans-serif;
+      };  
+
+/* 순서 바꼈을 때 */
+      
+</style>
 
 
-    </script>
+<script>
+    
+    const name = prompt("이름을 입력하세요");
+    const greetingContainer = document.querySelector('#mainImage');
+    const greeting = greetingContainer.querySelector('p');
+    const a = document.createElement("h1");
+
+    var newText = document.createTextNode(name + "님, 환영합니다!");
+    greeting.appendChild(a);
+    a.appendChild(newText);
+
+
+    const clockContainer = document.querySelector('#mainImage');
+    clockTitle = clockContainer.querySelector('#mainImage > h3');
+
+
+    function getTime() {                             
+    const date = new Date();
+    const minutes = date.getMinutes();
+    const hours = date.getHours();
+    const seconds = date.getSeconds();
+    clockTitle.textContent = `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+    }
+
+    function init() {
+        getTime();
+        setInterval(getTime, 1000);
+    }
+
+    init();
+   
+</script>
+
+
+<script>
+
+    const btn = document.querySelector('#btn');
+    const gugu = document.querySelector('#gugu');
+    const gugu2 = document.querySelector('#gugu2'); 
+ 
+//출력버튼을 클릭했을 때
+
+   btn.addEventListener('click', function() {
+  
+     const result = document.querySelector('#result');
+     const dan = Number(gugu.value);
+
+     
+         //첫번재 input태그에만 값이 있을 때 기본 dan만 출력
+           if (gugu2.value === ''){
+             result.textContent = '';
+             for (let i = 1; i < 10; i++){
+               const row = document.createElement('div');
+               row.textContent = dan + ' * ' + i + ' = ' + (dan * i); 
+               result.appendChild(row);
+             }
+           } else
+           
+         //두번째 input태그까지 value를 입력한 후 출력을 눌렀을 때
+            if(gugu.value !== '' && gugu2.value !== '') {
+             result.textContent = '';
+             for (let i = 1; i <= gugu2.value; i++){
+               const row = document.createElement('div');
+               row.textContent = dan + ' * ' + i + ' = ' + (dan * i); 
+               result.appendChild(row);
+             }
+           } 
+         
+         //첫번째 input태그에 아무 값이 입력되지 않았을 때 알림창 띄우기
+           if (gugu.value === '' && gugu2.value !== ''){
+               result.textContent = '';
+               alert("단을 입력하세요");
+           } else
+
+         //첫번째와 두번째 input태그에 아무 값이 입력되지 않았을 때 알림창 띄우기
+           if (gugu.value === '' && gugu2.value === ''){
+             result.textContent = '';
+             alert("숫자를 입력하세요");
+           }            
+        });
+
+
+//엔터키를 눌렀을 때
+
+   //첫번째 input태그에서 엔터를 눌렀을 때
+
+         gugu.addEventListener('keydown', function(event) {
+           const result = document.querySelector('#resultssssss');
+           const dan = Number(gugu.value);
+           const dan2 = Number(gugu2.value);
+        
+           if(event.code === 'Enter'){
+             const result = document.querySelector('#result');
+             const dan = Number(gugu.value);
+             const dan2 = Number(gugu2.value);
+
+          //첫번째 input태그에만 값이 있을 때 기본 dan 출력하기   
+          if (gugu2.value === ''){
+           result.textContent = '';
+                   for (let i = 1; i < 10; i++){
+                 const row = document.createElement('div');
+                 row.textContent = dan + ' * ' + i + ' = ' + (dan * i); 
+                 result.appendChild(row);
+                 }  
+               }
+
+         //첫번째와 두번째 input태그 둘 다 값이 있을 때
+         if (gugu.value !== '' && gugu2.value !== ''){
+          result.textContent = '';
+          for (let i = 1; i <= dan2; i++){   
+                 const row = document.createElement('div');
+                 row.textContent = dan + ' * ' + i + ' = ' + (dan * i); 
+                 result.appendChild(row);
+                 }  
+               }    
+
+         //첫번째 input태그에 아무 값이 입력되지 않았을 때 알림창 띄우기
+         if (gugu.value === ''){
+             result.textContent = '';
+             alert("단의 값을 입력하세요");
+            }
+          }
+      });
+
+
+   //두번째 input태그에서 엔터를 눌렀을 때
+
+         gugu2.addEventListener('keydown', function(event) {
+           const result = document.querySelector('#result');
+           const dan = Number(gugu.value);
+           const dan2 = Number(gugu2.value);
+
+           if(event.code === 'Enter'){
+             const result = document.querySelector('#result');
+             const dan = Number(gugu.value);
+             const dan2 = Number(gugu2.value);
+
+         //첫번째 input태그에만 값이 있을 때 기본 dan 출력하기
+         if (gugu2.value === ''){
+           result.textContent = '';
+                   for (let i = 1; i < 10; i++){
+                 const row = document.createElement('div');
+                 row.textContent = dan + ' * ' + i + ' = ' + (dan * i); 
+                 result.appendChild(row);
+                 }  
+               } else {
+
+         //첫번째와 두번째 input태그 둘 다 값이 있을 때
+          result.textContent = '';
+          for (let i = 1; i <= dan2; i++){   
+                 const row = document.createElement('div');
+                 row.textContent = dan + ' * ' + i + ' = ' + (dan * i); 
+                 result.appendChild(row);
+                 }  
+               }
+
+         //첫번째 input태그에 아무 값이 입력되지 않았을 때 알림창 띄우기
+         if (gugu.value === ''){
+             result.textContent = '';     
+             alert("단의 값을 입력하세요");
+            }   
+          }        
+       });
+
+</script>
 </body>
 </html>
